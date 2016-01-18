@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3sy-hm-5ty">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9046" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3sy-hm-5ty">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9035"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Deprocrastinator-->
@@ -17,8 +17,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6yX-lD-4Nh">
+                                <rect key="frame" x="20" y="72" width="522" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="drQ-y3-MzU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="guD-a2-SXo">
+                                <rect key="frame" x="550" y="72" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="VeS-bZ-FGg"/>
+                                    <constraint firstAttribute="height" constant="30" id="dGw-oq-ebV"/>
+                                </constraints>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="onAddButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="crH-Nt-GMU"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n6r-hN-LQA">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="110" width="600" height="490"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellIdentifier" id="EQQ-pg-IaX">
@@ -38,21 +57,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="n6r-hN-LQA" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="A0A-9R-lXR"/>
-                            <constraint firstItem="n6r-hN-LQA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="HAa-yo-1tO"/>
-                            <constraint firstAttribute="trailing" secondItem="n6r-hN-LQA" secondAttribute="trailing" id="Leb-GQ-qQx"/>
-                            <constraint firstItem="n6r-hN-LQA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ukt-1D-8se"/>
+                            <constraint firstItem="guD-a2-SXo" firstAttribute="leading" secondItem="6yX-lD-4Nh" secondAttribute="trailing" constant="8" id="4Ah-fK-fPk"/>
+                            <constraint firstItem="6yX-lD-4Nh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Ipq-M2-xfu"/>
+                            <constraint firstItem="n6r-hN-LQA" firstAttribute="top" secondItem="guD-a2-SXo" secondAttribute="bottom" constant="8" id="MLW-ER-oU5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n6r-hN-LQA" secondAttribute="bottom" id="QLC-VG-M5e"/>
+                            <constraint firstItem="guD-a2-SXo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="VmB-Jy-q0e"/>
+                            <constraint firstItem="n6r-hN-LQA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="eNb-Z2-WOK"/>
+                            <constraint firstItem="guD-a2-SXo" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gIY-Rj-NI1"/>
+                            <constraint firstItem="6yX-lD-4Nh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="hCX-PA-Hmi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="n6r-hN-LQA" secondAttribute="trailing" constant="-20" id="oK7-bi-rwK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Deprocrastinator" id="0ZZ-96-9AN">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="HlD-F7-vOZ">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="awq-XE-Av5">
                             <connections>
-                                <action selector="addToDoTapped:" destination="BYZ-38-t0r" id="Cds-gN-8oH"/>
+                                <action selector="onEditButtonPressed:" destination="BYZ-38-t0r" id="za0-mN-VpX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="n6r-hN-LQA" id="laE-EE-6pp"/>
+                        <outlet property="toDoTextField" destination="6yX-lD-4Nh" id="f4p-34-pNe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
