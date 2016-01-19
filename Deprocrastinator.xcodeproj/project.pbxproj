@@ -59,8 +59,8 @@
 			isa = PBXGroup;
 			children = (
 				4ACCC91A1C4D87DA00CDC4E5 /* Main.storyboard */,
-				4ACCC9281C4D87FA00CDC4E5 /* RootViewController.h */,
 				4ACCC9291C4D87FA00CDC4E5 /* RootViewController.m */,
+				4ACCC9281C4D87FA00CDC4E5 /* RootViewController.h */,
 				4ACCC91D1C4D87DA00CDC4E5 /* Assets.xcassets */,
 				4ACCC91F1C4D87DA00CDC4E5 /* LaunchScreen.storyboard */,
 				4ACCC9221C4D87DA00CDC4E5 /* Info.plist */,
