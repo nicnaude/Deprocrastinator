@@ -22,21 +22,21 @@
     [super viewDidLoad];
     self.toDoArray = [[NSMutableArray alloc] init];
     self.editModeIsOn = false;
-//    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
-//    [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-//    [self.tableView addGestureRecognizer:recognizer];
+    //    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
+    //    [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    //    [self.tableView addGestureRecognizer:recognizer];
 }
 
 #pragma mark - TableView methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (cell.backgroundColor != [UIColor whiteColor] && cell.backgroundColor != [UIColor yellowColor] && cell.backgroundColor != [UIColor greenColor] && cell.backgroundColor != [UIColor orangeColor] && cell.backgroundColor != [UIColor redColor]) {
         [cell setBackgroundColor:[UIColor whiteColor]];
         cell = [self.toDoArray objectAtIndex:indexPath.row];
-
-    } 
+        
+    }
     return cell;
 }
 
@@ -80,7 +80,7 @@
 - (IBAction)onAddButtonPressed:(UIButton *)sender
 {
     if (![self.toDoTextField.text isEqualToString:@""]) {
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+        UITableViewCell *cell = [[UITableViewCell alloc]init];
         cell.backgroundColor = [UIColor whiteColor];
         cell.textLabel.text = self.toDoTextField.text;
         [self.toDoArray addObject:cell];
@@ -91,6 +91,7 @@
     self.toDoTextField.text = nil;
 }
 
+// Edit button
 - (IBAction)onEditButtonPressed:(UIBarButtonItem*)sender {
     if ([sender.title  isEqual: @"Edit"]) {
         sender.title = @"Done";
@@ -108,8 +109,7 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.editModeIsOn) {
         return YES;
-    } else
-    {
+    } else {
         return NO;
     }
 }
