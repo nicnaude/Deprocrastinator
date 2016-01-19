@@ -12,7 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *toDoTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL editModeIsOn;
-
 @property NSMutableArray *toDoArray;
 
 @end
@@ -21,11 +20,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.toDoArray = [[NSMutableArray alloc] initWithObjects:@"Code", @"More Code", @"Milk", @"Eggs and code", nil];
+    self.toDoArray = [[NSMutableArray alloc] init];
     self.editModeIsOn = false;
-    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
-    [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.tableView addGestureRecognizer:recognizer];
+//    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
+//    [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+//    [self.tableView addGestureRecognizer:recognizer];
 }
 
 #pragma mark - TableView methods
@@ -33,10 +32,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
-    cell.textLabel.text = [self.toDoArray objectAtIndex:indexPath.row];
     if (cell.backgroundColor != [UIColor whiteColor] && cell.backgroundColor != [UIColor yellowColor] && cell.backgroundColor != [UIColor greenColor] && cell.backgroundColor != [UIColor orangeColor] && cell.backgroundColor != [UIColor redColor]) {
         [cell setBackgroundColor:[UIColor whiteColor]];
-    }
+        cell = [self.toDoArray objectAtIndex:indexPath.row];
+
+    } 
     return cell;
 }
 
@@ -45,30 +45,33 @@
     return self.toDoArray.count;
 }
 
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+//on button press change color to green
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    [cell setBackgroundColor:[UIColor yellowColor]];
+    [cell setBackgroundColor:[UIColor greenColor]];
 }
 
+//allows us to use "setEditing"
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
 
+//allows for delete edit
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete;
 }
 
+//calls
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.toDoArray removeObjectAtIndex:indexPath.row];
         
-        [tableView reloadData];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -77,7 +80,10 @@
 - (IBAction)onAddButtonPressed:(UIButton *)sender
 {
     if (![self.toDoTextField.text isEqualToString:@""]) {
-        [self.toDoArray insertObject:self.toDoTextField.text atIndex:0];
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.textLabel.text = self.toDoTextField.text;
+        [self.toDoArray addObject:cell];
     }
     
     [self.tableView reloadData];
@@ -102,8 +108,10 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.editModeIsOn) {
         return YES;
+    } else
+    {
+        return NO;
     }
-    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
@@ -114,29 +122,28 @@
 }
 
 
-- (void) handleSwipeRight: (UISwipeGestureRecognizer *)gestureRecognizer {
-    CGPoint location = [gestureRecognizer locationInView:self.tableView];
+- (IBAction)swipeRightRecognizer:(UISwipeGestureRecognizer *)sender {
+    CGPoint location = [sender locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath) {
-        if (cell.backgroundColor == [UIColor whiteColor]) {
-            [cell setBackgroundColor:[UIColor greenColor]];
-            return;
-        }
-        if (cell.backgroundColor == [UIColor greenColor]) {
-            [cell setBackgroundColor:[UIColor orangeColor]];
-            return;
-        }
-        if (cell.backgroundColor == [UIColor orangeColor]) {
-            [cell setBackgroundColor:[UIColor redColor]];
-            return;
-        }
-        if (cell.backgroundColor == [UIColor redColor]) {
-            [cell setBackgroundColor:[UIColor whiteColor]];
-            return;
-        }
-
+    if (cell.backgroundColor == [UIColor whiteColor]) {
+        [cell setBackgroundColor:[UIColor greenColor]];
     }
+    else if(cell.backgroundColor == [UIColor greenColor]) {
+        [cell setBackgroundColor:[UIColor yellowColor]];
+    }
+    else if (cell.backgroundColor == [UIColor yellowColor]) {
+        [cell setBackgroundColor:[UIColor redColor]];
+    }
+    else if (cell.backgroundColor == [UIColor redColor]) {
+        [cell setBackgroundColor:[UIColor whiteColor]];
+    }
+    [self.toDoArray replaceObjectAtIndex:indexPath.row withObject:cell];
+    [self.tableView reloadData];
+    
 }
+
+
+
 
 @end
